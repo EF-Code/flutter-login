@@ -1,11 +1,11 @@
 {
-  "name": "Forma",
-  "short_name": "Forma",
+  "name": "Flutter Login",
+  "short_name": "Login",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#F2F4F0",
   "theme_color": "#172D32",
-  "description": "A polished Flutter login demo with local form validation.",
+  "description": "A simple Flutter login page.",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "icons": [

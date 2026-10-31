@@ -3,48 +3,46 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_login/main.dart';
 
 void main() {
-  testWidgets(
-    'Invalid inputs show errors and valid inputs show the demo result',
-    (tester) async {
-      await tester.pumpWidget(const LoginApp());
-      final fields = find.byType(TextFormField);
-      final button = find.widgetWithText(FilledButton, 'Sign in');
+  testWidgets('Invalid inputs show errors and valid inputs clear them', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const LoginApp());
+    final fields = find.byType(TextFormField);
+    final button = find.widgetWithText(FilledButton, 'Sign in');
 
-      await tester.ensureVisible(button);
-      await tester.tap(button);
-      await tester.pumpAndSettle();
-      expect(find.text('Enter a valid email address.'), findsOneWidget);
-      expect(find.text('Use at least 6 characters.'), findsOneWidget);
-      expect(
-        find.text('Demo complete. Your details passed validation.'),
-        findsNothing,
-      );
+    await tester.ensureVisible(button);
+    await tester.tap(button);
+    await tester.pumpAndSettle();
+    expect(find.text('Enter a valid email address.'), findsOneWidget);
+    expect(find.text('Use at least 6 characters.'), findsOneWidget);
 
-      await tester.enterText(fields.first, 'invalid-email');
-      await tester.enterText(fields.last, '123');
-      await tester.ensureVisible(button);
-      await tester.tap(button);
-      await tester.pumpAndSettle();
-      expect(find.text('Enter a valid email address.'), findsOneWidget);
-      expect(find.text('Use at least 6 characters.'), findsOneWidget);
+    await tester.enterText(fields.first, 'invalid-email');
+    await tester.enterText(fields.last, '123');
+    await tester.ensureVisible(button);
+    await tester.tap(button);
+    await tester.pumpAndSettle();
+    expect(find.text('Enter a valid email address.'), findsOneWidget);
+    expect(find.text('Use at least 6 characters.'), findsOneWidget);
 
-      await tester.enterText(fields.first, 'learner@example.com');
-      await tester.enterText(fields.last, 'secret123');
-      expect(
-        tester.widget<EditableText>(find.byType(EditableText).last).obscureText,
-        isTrue,
-      );
-      await tester.ensureVisible(button);
-      await tester.tap(button);
-      await tester.pumpAndSettle();
-      expect(find.text('Enter a valid email address.'), findsNothing);
-      expect(find.text('Use at least 6 characters.'), findsNothing);
-      expect(
-        find.text('Demo complete. Your details passed validation.'),
-        findsOneWidget,
-      );
-    },
-  );
+    await tester.enterText(fields.first, 'learner@example.com');
+    await tester.enterText(fields.last, 'secret123');
+    expect(
+      tester.widget<EditableText>(find.byType(EditableText).last).obscureText,
+      isTrue,
+    );
+    await tester.ensureVisible(button);
+    await tester.tap(button);
+    await tester.pumpAndSettle();
+    expect(find.text('Enter a valid email address.'), findsNothing);
+    expect(find.text('Use at least 6 characters.'), findsNothing);
+    expect(
+      tester
+          .widget<EditableText>(find.byType(EditableText).last)
+          .focusNode
+          .hasFocus,
+      isFalse,
+    );
+  });
 
   testWidgets('The form remains usable on a small screen with a keyboard', (
     tester,
@@ -57,7 +55,6 @@ void main() {
     await tester.pumpAndSettle();
 
     final button = find.widgetWithText(FilledButton, 'Sign in');
-    await tester.ensureVisible(button);
     await tester.ensureVisible(button);
     await tester.tap(button);
     await tester.pumpAndSettle();
@@ -93,9 +90,14 @@ void main() {
     await tester.enterText(fields.last, 'example-password');
     await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pumpAndSettle();
+    expect(find.text('Enter a valid email address.'), findsNothing);
+    expect(find.text('Use at least 6 characters.'), findsNothing);
     expect(
-      find.text('Demo complete. Your details passed validation.'),
-      findsOneWidget,
+      tester
+          .widget<EditableText>(find.byType(EditableText).last)
+          .focusNode
+          .hasFocus,
+      isFalse,
     );
   });
 
