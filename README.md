@@ -1,10 +1,10 @@
 # Flutter Login
 
-A simple, responsive Flutter login page with email and password fields, input validation, and a password visibility toggle.
+A simple, responsive Flutter login page with an EF monogram, email and password fields, input validation, and a password visibility toggle.
 
 ## Screenshot
 
-<img src="screenshots/login.png" alt="Login page with email and password fields and a sign-in button" width="390">
+<img src="screenshots/login.png" alt="Login page with an EF monogram, email and password fields, and a sign-in button" width="390">
 
 ## Run locally
 

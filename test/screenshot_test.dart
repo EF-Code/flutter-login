@@ -19,6 +19,12 @@ void main() {
     addTearDown(tester.view.reset);
 
     await tester.pumpWidget(const RepaintBoundary(child: LoginApp()));
+    await tester.runAsync(
+      () => precacheImage(
+        const AssetImage('assets/images/ef-logo.png'),
+        tester.element(find.byType(LoginApp)),
+      ),
+    );
     await tester.pumpAndSettle();
     await expectLater(
       find.byType(LoginApp),
