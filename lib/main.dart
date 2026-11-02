@@ -83,6 +83,17 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        Center(
+                          child: Image.asset(
+                            'assets/images/ef-logo.png',
+                            width: 96,
+                            height: 96,
+                            color: _ink,
+                            colorBlendMode: BlendMode.srcIn,
+                            semanticLabel: 'EF logo',
+                          ),
+                        ),
+                        const SizedBox(height: 20),
                         const Text(
                           'Sign in',
                           style: TextStyle(
